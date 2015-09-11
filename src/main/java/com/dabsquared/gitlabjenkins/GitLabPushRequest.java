@@ -7,46 +7,54 @@ import org.apache.commons.lang.builder.ToStringStyle;
 
 /**
  * Represents for WebHook payload
- *
  * @author Daniel Brooks
  */
 public class GitLabPushRequest extends GitLabRequest {
-    public static GitLabPushRequest create(String payload) {
-        if (payload == null) {
-            throw new IllegalArgumentException("payload should not be null");
-        }
-     
-        GitLabPushRequest pushRequest =  Builder.INSTANCE.get().fromJson(payload, GitLabPushRequest.class);
-        return pushRequest;
-    }
+    private String before;
+
+    private String after;
+
+    private String checkout_sha;
+
+    private String ref;
+
+    private Integer user_id;
+
+    private String user_name;
+
+    private Integer project_id;
+
+    private Integer total_commits_count;
+
+    private Repository repository;
+
+    private List<Commit> commits;
 
     public GitLabPushRequest() {
     }
 
+    public static GitLabPushRequest create(String payload) {
+        if (payload == null) {
+            throw new IllegalArgumentException("payload should not be null");
+        }
 
-    private String before;
-    private String after;
-    private String checkout_sha;
-    private String ref;
-    private Integer user_id;
-    private String user_name;
-    private Integer project_id;
-    private Integer total_commits_count;
-    private Repository repository;
-    private List<Commit> commits;
-    
+        GitLabPushRequest pushRequest = Builder.INSTANCE.get().fromJson(payload, GitLabPushRequest.class);
+        return pushRequest;
+    }
+
     public List<Commit> getCommits() {
         return commits;
     }
+
+    public void setCommits(List<Commit> commits) {
+        this.commits = commits;
+    }
+
     public Commit getLastCommit() {
         if (commits.isEmpty()) {
             return null;
         }
         return commits.get(commits.size() - 1);
-    }
-    
-    public void setCommits(List<Commit> commits) {
-        this.commits = commits;
     }
 
     public Repository getRepository() {
@@ -170,7 +178,6 @@ public class GitLabPushRequest extends GitLabRequest {
         public void setHomepage(String homepage) {
             this.homepage = homepage;
         }
-
 
         @Override
         public String toString() {

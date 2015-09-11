@@ -1,9 +1,9 @@
 package com.dabsquared.gitlabjenkins;
 
-import hudson.triggers.SCMTrigger;
-
 import java.io.File;
 import java.io.IOException;
+
+import hudson.triggers.SCMTrigger;
 
 /**
  * Created by daniel on 6/8/14.

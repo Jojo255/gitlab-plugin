@@ -1,14 +1,14 @@
 package com.dabsquared.gitlabjenkins;
 
+import javax.annotation.Nonnull;
+
 import hudson.Extension;
-import hudson.model.Run;
 import hudson.model.AbstractBuild;
+import hudson.model.Run;
 import hudson.model.TaskListener;
 import hudson.model.listeners.RunListener;
 import hudson.triggers.Trigger;
 import jenkins.model.ParameterizedJobMixIn;
-
-import javax.annotation.Nonnull;
 
 /**
  * RunListener that will be called when a build starts and completes.
@@ -36,13 +36,11 @@ public class GitLabRunListener extends RunListener<Run> {
         super.onStarted(run, listener);
     }
 
-
     private GitLabPushTrigger getTrigger(Run run) {
         if (run instanceof AbstractBuild) {
             ParameterizedJobMixIn.ParameterizedJob p = ((AbstractBuild) run).getProject();
             for (Trigger t : p.getTriggers().values()) {
-                if (t instanceof GitLabPushTrigger)
-                    return (GitLabPushTrigger) t;
+                if (t instanceof GitLabPushTrigger) { return (GitLabPushTrigger) t; }
             }
         }
 
